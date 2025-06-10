@@ -18,7 +18,7 @@ model Category {
   id          Int             @id @default(autoincrement())
   name        String
   description String
-  breed_id    BreedCategory[]
+  breed       BreedCategory[]
   image       String
 }
 
@@ -27,7 +27,7 @@ model Coat {
   id          Int         @id @default(autoincrement())
   name        String
   description String
-  breed_id    BreedCoat[]
+  breed       BreedCoat[]
   image       String
 }
 
@@ -36,40 +36,40 @@ model Use {
   id          Int        @id @default(autoincrement())
   name        String
   description String
-  breed_id    BreedUse[]
+  breed       BreedUse[]
   image       String
 }
 
 // Model des pays
 model Country {
-  id       Int     @id @default(autoincrement())
-  name     String
-  breed_id Breed[]
+  id    Int     @id @default(autoincrement())
+  name  String
+  breed Breed[]
 }
 
 // Table M2M
 model BreedCategory {
-  id          Int      @id @default(autoincrement())
-  breed_id    Breed    @relation(fields: [breedId], references: [id])
-  category_id Category @relation(fields: [categoryId], references: [id])
-  breedId     Int
-  categoryId  Int
+  id         Int      @id @default(autoincrement())
+  breed      Breed    @relation(fields: [breedId], references: [id])
+  category   Category @relation(fields: [categoryId], references: [id])
+  breedId    Int
+  categoryId Int
 }
 
 model BreedCoat {
-  id       Int   @id @default(autoincrement())
-  breed_id Breed @relation(fields: [breedId], references: [id])
-  coat_id  Coat  @relation(fields: [coatId], references: [id])
-  breedId  Int
-  coatId   Int
+  id      Int   @id @default(autoincrement())
+  breed   Breed @relation(fields: [breedId], references: [id])
+  coat    Coat  @relation(fields: [coatId], references: [id])
+  breedId Int
+  coatId  Int
 }
 
 model BreedUse {
-  id       Int   @id @default(autoincrement())
-  breed_id Breed @relation(fields: [breedId], references: [id])
-  use_id   Use   @relation(fields: [useId], references: [id])
-  breedId  Int
-  useId    Int
+  id      Int   @id @default(autoincrement())
+  breed   Breed @relation(fields: [breedId], references: [id])
+  use     Use   @relation(fields: [useId], references: [id])
+  breedId Int
+  useId   Int
 }
 
 // Model des races des chevaux
@@ -77,10 +77,10 @@ model Breed {
   id          Int             @id @default(autoincrement())
   name        String
   description String
-  category_id BreedCategory[]
-  coat_id     BreedCoat[]
-  use_id      BreedUse[]
-  country_id  Country         @relation(fields: [countryId], references: [id])
+  categoryId  BreedCategory[]
+  coatId      BreedCoat[]
+  useId       BreedUse[]
+  country     Country         @relation(fields: [countryId], references: [id])
   countryId   Int
   image       String
   size        String
