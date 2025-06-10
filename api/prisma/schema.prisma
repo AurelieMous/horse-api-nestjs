@@ -1,0 +1,88 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Model des categories de chevaux
+model Category {
+  id          Int             @id @default(autoincrement())
+  name        String
+  description String
+  breed_id    BreedCategory[]
+  image       String
+}
+
+// model des robes de chevaux
+model Coat {
+  id          Int         @id @default(autoincrement())
+  name        String
+  description String
+  breed_id    BreedCoat[]
+  image       String
+}
+
+// Utilisation cheveaux
+model Use {
+  id          Int        @id @default(autoincrement())
+  name        String
+  description String
+  breed_id    BreedUse[]
+  image       String
+}
+
+// Model des pays
+model Country {
+  id       Int     @id @default(autoincrement())
+  name     String
+  breed_id Breed[]
+}
+
+// Table M2M
+model BreedCategory {
+  id          Int      @id @default(autoincrement())
+  breed_id    Breed    @relation(fields: [breedId], references: [id])
+  category_id Category @relation(fields: [categoryId], references: [id])
+  breedId     Int
+  categoryId  Int
+}
+
+model BreedCoat {
+  id       Int   @id @default(autoincrement())
+  breed_id Breed @relation(fields: [breedId], references: [id])
+  coat_id  Coat  @relation(fields: [coatId], references: [id])
+  breedId  Int
+  coatId   Int
+}
+
+model BreedUse {
+  id       Int   @id @default(autoincrement())
+  breed_id Breed @relation(fields: [breedId], references: [id])
+  use_id   Use   @relation(fields: [useId], references: [id])
+  breedId  Int
+  useId    Int
+}
+
+// Model des races des chevaux
+model Breed {
+  id          Int             @id @default(autoincrement())
+  name        String
+  description String
+  category_id BreedCategory[]
+  coat_id     BreedCoat[]
+  use_id      BreedUse[]
+  country_id  Country         @relation(fields: [countryId], references: [id])
+  countryId   Int
+  image       String
+  size        String
+  weight      String
+}
