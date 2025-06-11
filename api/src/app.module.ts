@@ -6,9 +6,10 @@ import { CategoryModule } from './category/category.module';
 import { CoatModule } from './coat/coat.module';
 import { UseModule } from './use/use.module';
 import { CountryModule } from './country/country.module';
+import { UserModule } from './user/user.module';
 
 @Module({
-  imports: [BreedModule, CategoryModule, CoatModule, UseModule, CountryModule],
+  imports: [BreedModule, CategoryModule, CoatModule, UseModule, CountryModule, UserModule],
   controllers: [AppController],
   providers: [AppService],
 })
