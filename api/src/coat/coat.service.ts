@@ -1,26 +1,48 @@
 import { Injectable } from '@nestjs/common';
-import { CreateCoatDto } from './dto/create-coat.dto';
-import { UpdateCoatDto } from './dto/update-coat.dto';
+import {PrismaService} from "../prisma/prisma.service";
 
 @Injectable()
 export class CoatService {
-  create(createCoatDto: CreateCoatDto) {
-    return 'This action adds a new coat';
+  constructor(private readonly prisma: PrismaService) {
   }
 
+  // Modérer les routes pour que seulement l'admin
+  /*create(createCoatDto: CreateCoatDto) {
+    return this.prisma.coat.create({
+      data : createCoatDto
+    });
+  }*/
+
   findAll() {
-    return `This action returns all coat`;
+    return this.prisma.coat.findMany({
+      include: {
+        breed: {
+          include: {
+            breed: true
+          }
+        }
+      }
+    });
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} coat`;
+    return this.prisma.coat.findUnique({
+      where: {id},
+      include: {
+        breed: {
+          include: {
+            breed: true
+          }
+        }
+      }
+    });
   }
 
-  update(id: number, updateCoatDto: UpdateCoatDto) {
+  /*update(id: number, updateCoatDto: UpdateCoatDto) {
     return `This action updates a #${id} coat`;
-  }
+  }*/
 
-  remove(id: number) {
+  /*remove(id: number) {
     return `This action removes a #${id} coat`;
-  }
+  }*/
 }

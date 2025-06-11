@@ -8,4 +8,8 @@ export class BreedEntity implements Breed {
     countryId: number;
     size: string;
     weight: string;
+
+    constructor(breed: Breed) {
+        Object.assign(this, breed);
+    }
 }
