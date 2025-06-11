@@ -1,13 +1,15 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {Controller, Get, Post, Body, Patch, Param, Delete, HttpCode, HttpStatus} from '@nestjs/common';
 import { BreedService } from './breed.service';
 import { CreateBreedDto } from './dto/create-breed.dto';
 import { UpdateBreedDto } from './dto/update-breed.dto';
+
 
 @Controller('breed')
 export class BreedController {
   constructor(private readonly breedService: BreedService) {}
 
   @Post()
+  @HttpCode(HttpStatus.CREATED)
   create(@Body() createBreedDto: CreateBreedDto) {
     return this.breedService.create(createBreedDto);
   }

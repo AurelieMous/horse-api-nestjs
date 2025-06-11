@@ -1,0 +1,9 @@
+### GET request to example server
+GET https://examples.http-client.intellij.net/get
+    ?generated-in=WebStorm
+
+### Récupérer les races de chevaux
+GET http://localhost:3000/breed
+
+### Récupérer les utilités des chevaux
+GET http://localhost:3000/use
